@@ -73,7 +73,7 @@ steps:
           # Envia o e-mail
           Send-MailMessage `
               -To $To `
-              -Subject "Veracode Report - App $veracodeAppName - Build: $BuildVersion" `
+              -Subject "Veracode Report - App $veracodeAppName - Build: $(BuildVersion)" `
               -Body "Segue em anexo o relatorio detalhado no ultimo scan do perfil $veracodeAppName" `
               -BodyAsHtml `
               -Priority high `
@@ -83,7 +83,7 @@ steps:
               -From $contaEmail `
               -Credential $credencialMail `
               -Attachments $caminhoRelatorio
-          Write-Host "Enviado o relatorio: App $veracodeAppName - Build: $BuildVersion"
+          Write-Host "Enviado o relatorio: App $veracodeAppName - Build: $(BuildVersion)"
       }
       catch {
           $ErrorMessage = $_.Exception.Message # Recebe o erro
