@@ -55,18 +55,18 @@ function Get-VeracodeReport {
     )
     
     # Recebe o App ID com base no nome da aplicacao dentro do Veracode
-    [xml]$INFO = $(VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action GetAppList | Select-String -Pattern $veracodeAppName)
+    [xml]$INFO = $(./VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action GetAppList | Select-String -Pattern $veracodeAppName)
     # Filtra o App ID
     $appID = $INFO.app.app_id
 
     try {
         # Pega o ID da build
-        [xml]$buildINFO = $(VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action getbuildinfo -appid $appID)
+        [xml]$buildINFO = $(./VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action getbuildinfo -appid $appID)
         $buildID = $buildINFO.buildinfo.build_id
         $BuildVersion = $buildINFO.buildinfo.build.version
         $caminhoRelatorio = "$env:LOCALAPPDATA\App-$veracodeAppName-$BuildVersion.pdf"
         # Gera o relatorio
-        $out = VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action DetailedReport -buildid "$buildID" -format pdf -outputfilepath "$caminhoRelatorio"
+        $out = ./VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action DetailedReport -buildid "$buildID" -format pdf -outputfilepath "$caminhoRelatorio"
         return $caminhoRelatorio
     }
     catch {
