@@ -7,7 +7,7 @@ pool:
 variables:
 - group: Veracode-MailReport
 - name: veracodeAppProfile
-  value: MSDN.JavaScript
+  value: MSDN.PHP
 
 steps:
 - task: PowerShell@2
