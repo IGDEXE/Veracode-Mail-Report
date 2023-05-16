@@ -4,6 +4,9 @@ trigger:
 pool:
   vmImage: windows-latest
 
+variables:
+- group: Veracode-MailReport
+
 steps:
 - task: PowerShell@2
   inputs:
