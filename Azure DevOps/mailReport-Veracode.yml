@@ -40,11 +40,12 @@ steps:
           # Pega o ID da build
           [xml]$buildINFO = $(./VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action getbuildinfo -appid $appID)
           $buildID = $buildINFO.buildinfo.build_id
-          $(BuildVersion) = $buildINFO.buildinfo.build.version
+          $BuildVersion = $buildINFO.buildinfo.build.version
+          Write-Host "##vso[task.setvariable variable=BuildVersion;]$BuildVersion"
           $caminhoRelatorio = "$env:LOCALAPPDATA\App-$veracodeAppName-$BuildVersion.pdf"
           # Gera o relatorio
           $out = ./VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action DetailedReport -buildid "$buildID" -format pdf -outputfilepath "$caminhoRelatorio"
-          return $caminhoRelatorio
+          Write-Host "##vso[task.setvariable variable=caminhoRelatorio;]$caminhoRelatorio"
       }
       catch {
           $ErrorMessage = $_.Exception.Message # Recebe o erro
