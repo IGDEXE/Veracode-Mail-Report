@@ -1,6 +1,13 @@
 # Veracode Mail Report
  
 # Como usar? <br>
+Execute o script passando as variáveis conforme solicitadas e na ordem: <br>
+veracodeAppName = Nome do perfil de aplicação conforme está no portal da Veracode <br>
+veracodeID = [Credencial da Veracode](https://dev.to/m3corp/credenciais-da-veracode-340m) <br>
+veracodeAPIkey = [Credencial da Veracode](https://dev.to/m3corp/credenciais-da-veracode-340m) <br>
+contaAlerta = Conta que vai receber o email <br>
+contaEmail = Conta que vai enviar <br>
+SenhaEmail = Conta que vai enviar <br>
 
 # Orientações Gmail:
 Para o caso de utilizar os serviços do Google, precisa gerar uma senha de App <br>
