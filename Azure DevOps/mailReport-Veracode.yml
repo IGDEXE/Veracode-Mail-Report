@@ -1,1 +1,26 @@
-# Bibliotecas funções
+trigger:
+- master
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Download e configuração: API Wrapper
+      Write-Host "Configurando: Wrapper"
+      $urlDownload = "https://tools.veracode.com/integrations/API-Wrappers/C%23/bin/VeracodeC%23API.zip" # Define a url de download
+      $caminhoDownload = "$env:LOCALAPPDATA/VeracodeAPI.zip" # Define um caminho para o arquivo de download
+      Invoke-WebRequest -Uri "$urlDownload" -OutFile "$caminhoDownload" # Faz o download
+      Expand-Archive -Path "$caminhoDownload" -DestinationPath "$pastaferramenta" -Force # Descompacta o ZIP para uma pasta
+      Rename-Item -Path "$pastaferramenta/VeracodeC#API.exe" -NewName "$pastaferramenta/VeracodeAPI.exe" -Force # Renomei para remover o # do nome
+      Remove-Item "$caminhoDownload" # Remove o arquivo de download
+  displayName: 'Veracode Wrapper - Configuração'
+
+- task: PowerShell@2
+  inputs:
+    filePath: '.\Azure DevOps\mailReport.ps1'
+    arguments: '$(veracodeAppProfile) $(VeracodeID) $(VeracodeKey) $(contaAlerta) $(contaEmail) $(SenhaEmail)'
+  displayName: 'Veracode - Relatorio por email $(veracodeAppProfile)'
