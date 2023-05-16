@@ -30,7 +30,7 @@ steps:
     workingDirectory: '$(Agent.BuildDirectory)'
     targetType: 'inline'
     script: |
-      $veracodeAppName = $(veracodeAppProfile)
+      $veracodeAppName = "$(veracodeAppProfile)"
       # Recebe o App ID com base no nome da aplicacao dentro do Veracode
       [xml]$INFO = $(./VeracodeAPI.exe -vid $veracodeID -vkey $veracodeAPIkey -action GetAppList | Select-String -Pattern $veracodeAppName)
       # Filtra o App ID
@@ -59,11 +59,11 @@ steps:
     workingDirectory: '$(Agent.BuildDirectory)'
     targetType: 'inline'
     script: |
-      $caminhoRelatorio = $(caminhoRelatorio)
-      $To = $(contaAlerta)
-      $contaEmail = $(contaEmail)
-      $SenhaEmail = $(SenhaEmail)
-      $veracodeAppName = $(veracodeAppProfile)
+      $caminhoRelatorio = "$(caminhoRelatorio)"
+      $To = "$(contaAlerta)"
+      $contaEmail = "$(contaEmail)"
+      $SenhaEmail = "$(SenhaEmail)"
+      $veracodeAppName = "$(veracodeAppProfile)"
 
       try {
           # Credencial
